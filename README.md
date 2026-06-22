@@ -15,19 +15,29 @@ This is a Mac app that keeps your Mac awake while Codex is working, then lets it
 7. Leave `Prevent sleep while Codex works` switched on.
 8. Only use `Carry Mode` if you really need the Mac to keep working with the lid closed.
 
-### Copy This Into Codex To Install It
+### Copy This Into Codex To Install And Test It
 
 Open Codex on your Mac and paste this:
 
 ```text
-Please install Codex Sleep Guard from https://github.com/kwen1510/sleep-guard.
+Please install and test Codex Sleep Guard from https://github.com/kwen1510/sleep-guard.
 
 Download this zip:
 https://github.com/kwen1510/sleep-guard/raw/main/dist/Codex-Sleep-Guard-macOS.zip
 
-Unzip it, move "Codex Sleep Guard.app" to /Applications, open it once, and tell me what to click if macOS asks for approval.
+Do the full setup for me:
+1. Download the zip to a temporary folder.
+2. Unzip it.
+3. Move "Codex Sleep Guard.app" to /Applications, replacing any older copy.
+4. Open the app.
+5. If macOS asks for approval, tell me exactly what to click.
+6. Verify the app is running.
+7. Verify a "Codex Sleep Guard" window appears.
+8. Verify normal Guard mode is on.
+9. Verify Carry Mode is off by checking that `pmset -g live` shows `SleepDisabled 0`.
+10. Do not enable Carry Mode unless I explicitly ask.
 
-Do not enable Carry Mode unless I explicitly ask.
+When you are done, tell me either "Codex Sleep Guard is installed, tested, and ready to use" or tell me exactly what failed.
 ```
 
 ### What To Click After Opening
@@ -51,7 +61,7 @@ The app also includes Carry Mode for the specific case where you want to keep a 
 
 ## Install
 
-Download the latest `Codex-Sleep-Guard-macOS.zip` from GitHub Releases, unzip it, and drag `Codex Sleep Guard.app` into `/Applications`.
+Download [Codex-Sleep-Guard-macOS.zip](https://github.com/kwen1510/sleep-guard/raw/main/dist/Codex-Sleep-Guard-macOS.zip), unzip it, and drag `Codex Sleep Guard.app` into `/Applications`.
 
 See [INSTALL.md](INSTALL.md) for first-run, helper approval, Carry Mode, and emergency recovery instructions.
 
