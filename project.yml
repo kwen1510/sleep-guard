@@ -1,0 +1,94 @@
+name: CodexSleepGuard
+options:
+  bundleIdPrefix: com.codexsleepguard
+  deploymentTarget:
+    macOS: "14.0"
+settings:
+  base:
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    SWIFT_VERSION: "5.0"
+targets:
+  CodexSleepGuardPowerHelper:
+    type: tool
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: Sources/CodexSleepGuardPowerHelper
+      - path: Sources/CodexSleepGuardPowerShared
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.codexsleepguard.app.PowerHelper
+        PRODUCT_NAME: com.codexsleepguard.app.PowerHelper
+  CodexSleepGuardCore:
+    type: framework
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: Sources/CodexSleepGuardCore
+    dependencies:
+      - sdk: IOKit.framework
+      - sdk: ServiceManagement.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.codexsleepguard.core
+        GENERATE_INFOPLIST_FILE: YES
+  CodexSleepGuard:
+    type: application
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: Sources/CodexSleepGuard
+      - path: Sources/CodexSleepGuardPowerShared
+    dependencies:
+      - target: CodexSleepGuardCore
+      - target: CodexSleepGuardPowerHelper
+        link: false
+        embed: false
+    postBuildScripts:
+      - name: Embed Power Helper
+        script: |
+          set -e
+          MACOS_DIR="$TARGET_BUILD_DIR/$CONTENTS_FOLDER_PATH/MacOS"
+          DAEMON_DIR="$TARGET_BUILD_DIR/$CONTENTS_FOLDER_PATH/Library/LaunchDaemons"
+          HELPER_NAME="com.codexsleepguard.app.PowerHelper"
+          mkdir -p "$MACOS_DIR" "$DAEMON_DIR"
+          cp "$BUILT_PRODUCTS_DIR/$HELPER_NAME" "$MACOS_DIR/$HELPER_NAME"
+          cp "$SRCROOT/Sources/CodexSleepGuardPowerHelper/$HELPER_NAME.plist" "$DAEMON_DIR/$HELPER_NAME.plist"
+        inputFiles:
+          - "$(BUILT_PRODUCTS_DIR)/com.codexsleepguard.app.PowerHelper"
+          - "$(SRCROOT)/Sources/CodexSleepGuardPowerHelper/com.codexsleepguard.app.PowerHelper.plist"
+        outputFiles:
+          - "$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/MacOS/com.codexsleepguard.app.PowerHelper"
+          - "$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/Library/LaunchDaemons/com.codexsleepguard.app.PowerHelper.plist"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.codexsleepguard.app
+        PRODUCT_NAME: Codex Sleep Guard
+        INFOPLIST_FILE: Sources/CodexSleepGuard/Info.plist
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ENABLE_HARDENED_RUNTIME: YES
+  CodexSleepGuardTests:
+    type: bundle.unit-test
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: Tests/CodexSleepGuardTests
+    dependencies:
+      - target: CodexSleepGuardCore
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+schemes:
+  CodexSleepGuard:
+    build:
+      targets:
+        CodexSleepGuard: all
+        CodexSleepGuardCore: all
+        CodexSleepGuardPowerHelper: all
+        CodexSleepGuardTests: [test]
+    test:
+      gatherCoverageData: true
+      coverageTargets:
+        - CodexSleepGuardCore
+      targets:
+        - name: CodexSleepGuardTests

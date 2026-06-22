@@ -1,0 +1,11 @@
+.DS_Store
+Build/
+DerivedData/
+dist/
+*.xcresult
+*.dSYM
+*.zip
+*.tar.gz
+xcuserdata/
+*.xcuserstate
+
