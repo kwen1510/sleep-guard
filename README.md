@@ -1,5 +1,47 @@
 # Codex Sleep Guard
 
+## TLDR: Install It
+
+This is a Mac app that keeps your Mac awake while Codex is working, then lets it sleep again when Codex is done.
+
+### Easiest Way
+
+1. Go to the [latest release](https://github.com/kwen1510/sleep-guard/releases/latest).
+2. Download `Codex-Sleep-Guard-macOS.zip`.
+3. Double-click the zip file to unzip it.
+4. Drag `Codex Sleep Guard.app` into your `Applications` folder.
+5. Open `Codex Sleep Guard.app`.
+6. If macOS says it cannot verify the app, right-click the app and choose `Open`.
+7. Leave `Prevent sleep while Codex works` switched on.
+8. Only use `Carry Mode` if you really need the Mac to keep working with the lid closed.
+
+### Copy This Into Codex To Install It
+
+Open Codex on your Mac and paste this:
+
+```text
+Please install Codex Sleep Guard from https://github.com/kwen1510/sleep-guard.
+
+Download the latest release zip, unzip it, move "Codex Sleep Guard.app" to /Applications, open it once, and tell me what to click if macOS asks for approval.
+
+Do not enable Carry Mode unless I explicitly ask.
+```
+
+### What To Click After Opening
+
+- Keep `Prevent sleep while Codex works` on.
+- Turn on `Launch at Login` if you want it to start automatically.
+- Leave `Carry Mode` off for normal use.
+- If you turn on `Carry Mode`, approve password or Touch ID, and turn it off again as soon as possible.
+
+Emergency reset if Carry Mode ever gets stuck:
+
+```sh
+sudo pmset -a disablesleep 0
+```
+
+## What It Does
+
 Codex Sleep Guard is a native macOS 14+ menu bar utility that prevents user-idle system sleep only while Codex is actively executing work. When Codex returns to idle, the app keeps the assertion for a five-minute grace period, then releases it. The menu bar item includes a persistent Guard On/Off switch; when switched off, the app continues to show detection status but never holds a sleep-prevention assertion.
 
 The app also includes Carry Mode for the specific case where you want to keep a MacBook awake with the lid closed while Codex is working. Carry Mode changes the system sleep setting through a privileged helper, requires password or Touch ID before activation, turns the UI red while enabled, and can switch itself off when Codex finishes.
