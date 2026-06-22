@@ -1,11 +1,13 @@
 .DS_Store
 Build/
 DerivedData/
-dist/
+dist/*
+!dist/
+!dist/Codex-Sleep-Guard-macOS.zip
 *.xcresult
 *.dSYM
 *.zip
+!dist/Codex-Sleep-Guard-macOS.zip
 *.tar.gz
 xcuserdata/
 *.xcuserstate
-

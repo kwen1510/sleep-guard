@@ -6,8 +6,8 @@ This is a Mac app that keeps your Mac awake while Codex is working, then lets it
 
 ### Easiest Way
 
-1. Go to the [latest release](https://github.com/kwen1510/sleep-guard/releases/latest).
-2. Download `Codex-Sleep-Guard-macOS.zip`.
+1. Download [Codex-Sleep-Guard-macOS.zip](https://github.com/kwen1510/sleep-guard/raw/main/dist/Codex-Sleep-Guard-macOS.zip).
+2. Open your `Downloads` folder.
 3. Double-click the zip file to unzip it.
 4. Drag `Codex Sleep Guard.app` into your `Applications` folder.
 5. Open `Codex Sleep Guard.app`.
@@ -22,7 +22,10 @@ Open Codex on your Mac and paste this:
 ```text
 Please install Codex Sleep Guard from https://github.com/kwen1510/sleep-guard.
 
-Download the latest release zip, unzip it, move "Codex Sleep Guard.app" to /Applications, open it once, and tell me what to click if macOS asks for approval.
+Download this zip:
+https://github.com/kwen1510/sleep-guard/raw/main/dist/Codex-Sleep-Guard-macOS.zip
+
+Unzip it, move "Codex Sleep Guard.app" to /Applications, open it once, and tell me what to click if macOS asks for approval.
 
 Do not enable Carry Mode unless I explicitly ask.
 ```

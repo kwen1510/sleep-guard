@@ -27,14 +27,16 @@ xcodebuild \
   build \
   CODE_SIGNING_ALLOWED=NO
 
-ditto "$BUILD_DIR/Build/Products/Release/$APP_NAME.app" "$APP_BUNDLE"
+COPYFILE_DISABLE=1 ditto "$BUILD_DIR/Build/Products/Release/$APP_NAME.app" "$APP_BUNDLE"
 
 codesign --force --sign - "$APP_BUNDLE/Contents/Frameworks/CodexSleepGuardCore.framework"
 codesign --force --sign - --identifier com.codexsleepguard.app.PowerHelper "$APP_BUNDLE/Contents/MacOS/com.codexsleepguard.app.PowerHelper"
 codesign --force --sign - "$APP_BUNDLE"
 codesign --verify --deep --strict --verbose=4 "$APP_BUNDLE"
 
-ditto -c -k --keepParent "$APP_BUNDLE" "$ZIP_PATH"
+(
+  cd "$ROOT_DIR/dist"
+  COPYFILE_DISABLE=1 zip -qry --symlinks "$(basename "$ZIP_PATH")" "$APP_NAME.app"
+)
 
 echo "Created $ZIP_PATH"
-
